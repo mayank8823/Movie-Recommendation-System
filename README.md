@@ -24,30 +24,39 @@ Github, Figma
 
 # Screenshots of my Project:
 Registration Page:
+
 ![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/adcd017b-34db-4662-814c-1f4e489ece6e)
 
 Login Page:
+
 ![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/8b9e4444-7ce8-44dc-9665-794f2240b000)
 
 Home Page:
+
 ![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/f1f3b334-254b-4acd-97cb-5c6482c2edcf)
 
 User Profile Page:
+
 ![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/cf2366f4-87d4-4031-b715-0064cf82aad8)
 
 Auto-Complete Suggestion and Voice Search:
+
 ![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/adabccb4-172c-4cf8-a393-5ee93f7a827b)
 
 Recommendation on Search Basis:
+
 ![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/237f6675-029e-4b03-9c50-909561807a6c)
 
 Description And Comment Section:
+
 ![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/3b0d7972-a5da-4abe-8888-0992cb4579ce)
 
 Give review if already watched:
+
 ![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/e53532e1-73c8-4aaa-9857-f37715953c5e)
 
 Contact Us Page:
+
 ![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/650b169f-4091-449d-9243-9af418a4c95c)
 
 

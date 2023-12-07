@@ -51,7 +51,7 @@ Contact Us Page:
 ![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/650b169f-4091-449d-9243-9af418a4c95c)
 
 
-Thank you for visiting my repository.
+Thank you for visiting my repository...
 
 # Contributers:
 Pushkar Choudhary

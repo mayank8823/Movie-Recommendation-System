@@ -1,63 +1,69 @@
-# Movie-Recommendation-System
+# Content-Based-Movie-Recommender-System-with-sentiment-analysis-using-AJAX
+
+![Python](https://img.shields.io/badge/Python-3.8-blueviolet)
+![Framework](https://img.shields.io/badge/Framework-Flask-red)
+![Frontend](https://img.shields.io/badge/Frontend-HTML/CSS/JS-green)
+![API](https://img.shields.io/badge/API-TMDB-fcba03)
+
+**Updated version of this application can be found at:** https://github.com/kishan0725/The-Movie-Cinema
+
 Content Based Recommender System recommends movies similar to the movie user likes and analyses the sentiments on the reviews given by the user for that movie.
 
-The details of the movies(title, genre, runtime, rating, poster, etc) are fetched using an API by TMDB, and using the IMDB id of the movie in the API, I did web scraping to get the reviews given by the user in the IMDB site and performed sentiment analysis on those reviews.
+The details of the movies(title, genre, runtime, rating, poster, etc) are fetched using an API by TMDB, https://www.themoviedb.org/documentation/api, and using the IMDB id of the movie in the API, I did web scraping to get the reviews given by the user in the IMDB site using `beautifulsoup4` and performed sentiment analysis on those reviews.
 
-This application provides all the details of the requested movie such as overview, genre, release date, rating, runtime, top cast, reviews, recommended movies, etc. Don't worry if the movie that you are looking for is not auto-suggested. Just type the movie name and click on "enter". You will be good to go eventhough if you made some typo errors.
+Link to youtube demo: https://www.youtube.com/watch?v=dhVePtyECFw
 
-# Architecture:
-![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/16528da4-0f54-44eb-a086-6adba31727f5)
+## The Movie Cinema
 
-# Similarity Score And Cosine Similarity:
-Similarity score is a numerical value ranges between zero to one which helps to determine how much two items are similar to each other on a scale of zero to one. This similarity score is obtained measuring the similarity between the text details of both of the items.
+I've developed a similar application called "The Movie Cinema" which supports all language movies. But the only thing that differs from this application is that I've used the TMDB's recommendation engine in "The Movie Cinema". The recommendation part developed by me in this application doesn't support for multi-language movies as it consumes 200% of RAM (even after deploying it to Heroku) for generating Count Vectorizer matrix for all the 700,000+ movies in the TMDB. 
 
-Cosine similarity measures the cosine of the angle between two vectors projected in a multi-dimensional space. The cosine similarity is advantageous because even if the two similar documents are far apart by the Euclidean distance (due to the size of the document), chances are they may still be oriented closer together. The smaller the angle, higher the cosine similarity.
+Link to "The Movie Cinema" application: [https://tmc.kishanlal.dev/](https://tmc.kishanlal.dev/)
 
-# Technologies Used:
-Web Technologies: Html , Css , JavaScript , Bootstrap , ExpressJS
+Don't worry if the movie that you are looking for is not auto-suggested. Just type the movie name and click on "enter". You will be good to go eventhough if you made some typo errors.
 
-Machine Learning Library In Python3: Jupyter Notebook, Numpy, Pandas, Flask
+Source Code: https://github.com/kishan0725/The-Movie-Cinema
 
-Database: MongoDB
+## Featured in Krish's Live Session on YouTube
 
-Github, Figma
+[![krish youtube](https://github.com/kishan0725/AJAX-Movie-Recommendation-System-with-Sentiment-Analysis/blob/master/static/krish-naik.PNG)](https://www.youtube.com/watch?v=A_78fGgQMjM)
 
-# Screenshots of my Project:
-Registration Page:
+## How to get the API key?
 
-![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/adcd017b-34db-4662-814c-1f4e489ece6e)
+Create an account in https://www.themoviedb.org/, click on the `API` link from the left hand sidebar in your account settings and fill all the details to apply for API key. If you are asked for the website URL, just give "NA" if you don't have one. You will see the API key in your `API` sidebar once your request is approved.
 
-Login Page:
+## How to run the project?
 
-![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/8b9e4444-7ce8-44dc-9665-794f2240b000)
+1. Clone or download this repository to your local machine.
+2. Install all the libraries mentioned in the [requirements.txt](https://github.com/kishan0725/Movie-Recommendation-System-with-Sentiment-Analysis/blob/master/requirements.txt) file with the command `pip install -r requirements.txt`
+3. Get your API key from https://www.themoviedb.org/. (Refer the above section on how to get the API key)
+3. Replace YOUR_API_KEY in **both** the places (line no. 15 and 29) of `static/recommend.js` file and hit save.
+4. Open your terminal/command prompt from your project directory and run the file `main.py` by executing the command `python main.py`.
+5. Go to your browser and type `http://127.0.0.1:5000/` in the address bar.
+6. Hurray! That's it.
 
-Home Page:
+## Architecture
 
-![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/f1f3b334-254b-4acd-97cb-5c6482c2edcf)
+![Recommendation App](https://user-images.githubusercontent.com/36665975/168742738-5435cf76-1a42-4d87-94b4-999e5bfc48d3.png)
 
-User Profile Page:
+## Similarity Score : 
 
-![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/cf2366f4-87d4-4031-b715-0064cf82aad8)
+   How does it decide which item is most similar to the item user likes? Here come the similarity scores.
+   
+   It is a numerical value ranges between zero to one which helps to determine how much two items are similar to each other on a scale of zero to one. This similarity score is obtained measuring the similarity between the text details of both of the items. So, similarity score is the measure of similarity between given text details of two items. This can be done by cosine-similarity.
+   
+## How Cosine Similarity works?
+  Cosine similarity is a metric used to measure how similar the documents are irrespective of their size. Mathematically, it measures the cosine of the angle between two vectors projected in a multi-dimensional space. The cosine similarity is advantageous because even if the two similar documents are far apart by the Euclidean distance (due to the size of the document), chances are they may still be oriented closer together. The smaller the angle, higher the cosine similarity.
+  
+  ![image](https://user-images.githubusercontent.com/36665975/70401457-a7530680-1a55-11ea-9158-97d4e8515ca4.png)
 
-Auto-Complete Suggestion and Voice Search:
+  
+More about Cosine Similarity : [Understanding the Math behind Cosine Similarity](https://www.machinelearningplus.com/nlp/cosine-similarity/)
 
-![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/adabccb4-172c-4cf8-a393-5ee93f7a827b)
+### Sources of the datasets 
 
-Recommendation on Search Basis:
+1. [IMDB 5000 Movie Dataset](https://www.kaggle.com/carolzhangdc/imdb-5000-movie-dataset)
+2. [The Movies Dataset](https://www.kaggle.com/rounakbanik/the-movies-dataset)
+3. [List of movies in 2018](https://en.wikipedia.org/wiki/List_of_American_films_of_2018)
+4. [List of movies in 2019](https://en.wikipedia.org/wiki/List_of_American_films_of_2019)
+5. [List of movies in 2020](https://en.wikipedia.org/wiki/List_of_American_films_of_2020)
 
-![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/237f6675-029e-4b03-9c50-909561807a6c)
-
-Description And Comment Section:
-
-![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/3b0d7972-a5da-4abe-8888-0992cb4579ce)
-
-Give review if already watched:
-
-![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/e53532e1-73c8-4aaa-9857-f37715953c5e)
-
-Contact Us Page:
-
-![image](https://github.com/mayank8823/Movie-Recommendation-System/assets/111684416/650b169f-4091-449d-9243-9af418a4c95c)
-
-
-Thank you for visiting my repository.

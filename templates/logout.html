@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style1.css') }}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            margin: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input,
+        select {
+            width: calc(100% - 16px);
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h2 {
+            color: #333;
+        }
+    </style>
+</head>
+
+<body class="logout">
+
+    <form action="/your-server-endpoint" method="post">
+        <h2>Registration Form</h2>
+
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" placeholder="Enter Your First Name" required>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" placeholder="Enter Your Last Name" required>
+
+        <label for="ageGroup">Age Group:</label>
+        <select id="ageGroup" name="ageGroup" placeholder="From Which Age Group You Belong" required>
+            <option value="" disabled selected hidden>Choose your Age Group</option>
+            <option value="under18">Under 18</option>
+            <option value="18to25">18 to 25</option>
+            <option value="26to35">26 to 35</option>
+            <option value="36to50">36 to 50</option>
+            <option value="over50">Over 50</option>
+        </select>
+
+        <label for="location">Region:</label>
+        <select id="location" name="location" placeholder="Enter Your Region" required>
+            <option value="" disabled selected hidden>Choose your Region</option>
+            <option value="north">Asia</option>
+            <option value="south">Africa</option>
+            <option value="east">Europe</option>
+            <option value="west">North America</option>
+            <option value="west">South America</option>
+        </select>
+
+        <label for="email">Email ID:</label>
+        <input type="email" id="email" name="email" placeholder="Enter Your EmailId" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" placeholder="Enter Your Gender" required>
+            <option value="" disabled selected hidden>Choose Your Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="preferNotToSay">Prefer Not To Say</option>
+        </select>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter Your Password" required>
+
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter Your Password"
+            required>
+
+        <label for="profession">Profession:</label>
+        <select id="profession" name="profession" placeholder="Enter Your Profession" required>
+            <option value="" disabled selected hidden>Choose your profession</option>
+            <option value="student">Student</option>
+            <option value="itProfessional">IT Professional</option>
+            <option value="teacher">Teacher</option>
+            <option value="governmentServant">Government Servant</option>
+            <option value="corporate">Corporate</option>
+            <option value="business">Business</option>
+            <option value="others">Others</option>
+        </select>
+
+        <button type="submit" onclick="submitForm()">Register</button>
+    </form>
+    <script>
+        function submitForm() {
+            // Get all form elements
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const ageGroup = document.getElementById('ageGroup').value;
+            const location = document.getElementById('location').value;
+            const email = document.getElementById('email').value;
+            const gender = document.getElementById('gender').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const profession = document.getElementById('profession').value;
+
+            // Check if any field is empty
+            if (
+                firstName === '' ||
+                lastName === '' ||
+                ageGroup === '' ||
+                location === '' ||
+                email === '' ||
+                gender === '' ||
+                password === '' ||
+                confirmPassword === '' ||
+                profession === ''
+            ) {
+                alert('Please fill out all fields.');
+                return false; // Prevent form submission
+            }
+
+            // Check if password and confirm password match
+            if (password !== confirmPassword) {
+                alert('Password and Confirm Password do not match.');
+                return false; // Prevent form submission
+            }
+
+            // Additional custom validation logic can be added here
+
+            const isRegistrationSuccessful = true;
+
+            if (isRegistrationSuccessful) {
+                alert('Registration successful! Redirecting to login page.');
+                window.location.href = '/login.html';
+                return false; // Prevent form submission
+            } else {
+                alert('Registration failed. Please try again.');
+                return false; // Prevent form submission
+            }
+        }
+    </script>
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Movie Adda</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Auto Complete -->
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/css/autoComplete.min.css">
+
+  <!-- External CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='cardka.css') }}">
+
+  <script
+    src="https://cdn.rawgit.com/GoogleChrome/web-platform-tests/16fa14c7e6c0e7805222198dbdb6209d6924f1d2/speech-api/speechapi.js"></script>
+
+
+  <style>
+    .footer {
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .card-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      width: 30%;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body id="content" style="font-family: 'Noto Sans JP', sans-serif;">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Movie Adda</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contactus.html">Contact Us</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="{{ url_for('action') }}" id="navbarDropdownGenre" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Genres
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownGenre">
+            <a class="dropdown-item" href="{{ url_for('action') }}">Action</a>
+            <a class="dropdown-item" href="">Drama</a>
+            <a class="dropdown-item" href="">Horror</a>
+            <a class="dropdown-item" href="">Thriller</a>
+            <a class="dropdown-item" href="">Romance</a>
+            <a class="dropdown-item" href="">Korean</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.imdb.com/chart/moviemeter/" target="_blank">Popular</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.imdb.com/calendar/?ref_=rlm&region=IN&type=MOVIE"
+            target="_blank">Upcoming</a>
+        </li>
+
+      </ul>
+    </div>
+
+    <!-- Sign In option in rightmost corner -->
+    <div class="ml-auto">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a href="#" onclick="showUserDetails()">Pushkar</a>
+          <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <script type="text/javascript">
+    var films = {{ suggestions| tojson}};
+    $(document).ready(function () {
+      $("#myModal").modal('show');
+    });
+  </script>
+
+  <div class="body-content">
+    <div class="ml-container" style="display: block;">
+      <center>
+        <h1 class="app-title">Movie Adda</h1>
+      </center>
+      <div class="form-group shadow-textarea" style="margin-top: 30px;text-align: center;color: white;">
+        <input type="text" name="movie" class="movie form-control" id="autoComplete" autocomplete="off"
+          placeholder="Enter the Movie Name"
+          style="background-color: #ffffff;border-color:#ffffff;width: 60%;color: #181818" required="required" />
+        <br>
+      </div>
+
+      <button class="btn btn-primary btn-block voice-button"
+        style="background-color: #647d2aeb; text-align: center; border-color: #e50914; width:120px;"
+        onclick="startVoiceRecognition()">Voice Search</button>
+
+      <br>
+
+      <div class="form-group" style="text-align: center;">
+        <button class="btn btn-primary btn-block movie-button"
+          style="background-color: #647d2aeb;text-align: center;border-color: #e50914;width:120px;"
+          onclick="hideCards()">Enter</button><br><br>
+      </div>
+
+      <div class="card-container" id="cardContainer">
+        <div class="card">
+          <img class="card-img-top1">
+          <div class="card-body">
+            <h5 class="card-title">Spider Man</h5>
+            <p class="card-text">Rating: 4.5/5</p>
+            <button class="btn btn-success"><a href="{{ url_for('review') }}">Rate Movie</a></button>
+            <button class="btn btn-success"><a href="{{ url_for('review') }}">Comment</a></button>
+
+            <a href="https://www.netflix.com" class="btn btn-secondary">Watch Now</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card-img-top2">
+          <div class="card-body">
+            <h5 class="card-title">Transformer</h5>
+            <p class="card-text">Rating: 3.8/5</p>
+            <button class="btn btn-success">Rate Us</button>
+            <button class="btn btn-primary">Comment</button>
+            <a href="https://www.netflix.com" class="btn btn-secondary">Watch Now</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card-img-top3">
+          <div class="card-body">
+            <h5 class="card-title">SpiderMan : No way Home</h5>
+            <p class="card-text">Rating: 4.0/5</p>
+            <button class="btn btn-success">Rate Us</button>
+            <button class="btn btn-primary">Comment</button>
+            <a href="https://www.netflix.com" class="btn btn-secondary">Watch Now</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card-img-top4">
+          <div class="card-body">
+            <h5 class="card-title">Open Hiemer</h5>
+            <p class="card-text">Rating: 4.5/5</p>
+            <button class="btn btn-success">Rate Us</button>
+            <button class="btn btn-primary">Comment</button>
+            <a href="https://www.netflix.com" class="btn btn-secondary">Watch Now</a>
+
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card-img-top5">
+          <div class="card-body">
+            <h5 class="card-title">Fast and Furious</h5>
+            <p class="card-text">Rating: 3.8/5</p>
+            <button class="btn btn-success">Rate Us</button>
+            <button class="btn btn-primary">Comment</button>
+            <a href="https://www.netflix.com" class="btn btn-secondary">Watch Now</a>
+
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card-img-top6">
+          <div class="card-body">
+            <h5 class="card-title">SpiderMan 2</h5>
+            <p class="card-text">Rating: 4.0/5</p>
+            <button class="btn btn-success">Rate Us</button>
+            <button class="btn btn-primary">Comment</button>
+            <a href="https://www.netflix.com" class="btn btn-secondary">Watch Now</a>
+
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card-img-top7">
+          <div class="card-body">
+            <h5 class="card-title">Avatar</h5>
+            <p class="card-text">Rating: 4.5/5</p>
+            <button class="btn btn-success">Rate Us</button>
+            <button class="btn btn-primary">Comment</button>
+            <a href="https://www.netflix.com" class="btn btn-secondary">Watch Now</a>
+
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card-img-top8">
+          <div class="card-body">
+            <h5 class="card-title">Tenet</h5>
+            <p class="card-text">Rating: 3.8/5</p>
+            <button class="btn btn-success">Rate Us</button>
+            <button class="btn btn-primary">Comment</button>
+            <a href="https://www.netflix.com" class="btn btn-secondary">Watch Now</a>
+
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card-img-top9">
+          <div class="card-body">
+            <h5 class="card-title">PK</h5>
+            <p class="card-text">Rating: 4.0/5</p>
+            <button class="btn btn-success">Rate Us</button>
+            <button class="btn btn-primary">Comment</button>
+            <a href="https://www.netflix.com" class="btn btn-secondary">Watch Now</a>
+
+          </div>
+        </div>
+      </div>
+
+
+      <div class="fail">
+        <center>
+          <h3>Sorry! The movie you requested is not in our database.
+            Please check the spelling or try with other movies!</h3>
+        </center>
+      </div>
+
+      <div class="results">
+        <center>
+          <h2 id="name" class="text-uppercase"></h2>
+        </center>
+      </div>
+
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+          <div class="modal-content">
+            <div class="modal-header" style="background-color: #e50914;color: white;">
+              <h5 class="modal-title" id="exampleModalLabel3">Hey there!</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" style="color: white">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>If you can't find the movie you're searching for through auto-suggestions while typing, there's
+                no
+                need
+                to worry. Simply type the name of the movie and press "enter". Even if you make some typos, it
+                should
+                still work fine.</p>
+            </div>
+            <div class="modal-footer" style="text-align: center;">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Let's go!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="userDetailsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="userDetailsModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="userDetailsModalLabel">My Profile</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="userDetailsBody">
+              <img src="{{ url_for('static', filename='pushkar.jpg') }}" alt="Pushkar's Photo"
+                class="img-fluid rounded-circle" style="max-width: 100px; margin-top: 10px;">
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+      <footer class="footer">
+        <br />
+        <div class="social" style="margin-bottom: 8px">
+          <a class="social-icons" href="https://github.com/Pushkariiit" target="_blank"><i class="fa fa-github-alt"
+              style="font-size:24px;color: #e4e0e0"></i></a>
+          <a class="social-icons" href="https://www.linkedin.com/in/pushkariiitv/" target="_blank"><i
+              class="fa fa-linkedin-square" style="font-size:24px;color: #e4e0e0"></i></a>
+          <a class="social-icons" href="https://quora.com" target="_blank"><i class="fa fa-quora"
+              style="font-size:24px;color: #e4e0e0"></i></a>
+          <a class="social-icons" href="https://www.instagram.com/pushkar2610_" target="_blank"><i
+              class="fa fa-instagram" style="font-size:24px;color: #e4e0e0"></i></a>
+          <a class="social-icons" href="https://twitter.com/" target="_blank"><i class="fa fa-twitter"
+              style="font-size:24px;color: #e4e0e0"></i></a>
+        </div>
+      </footer>
+    </div>
+
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Add event listener for "Rate Us" button
+        document.querySelectorAll('.btn-success').forEach(function (button) {
+          button.addEventListener('click', function () {
+            window.location.href = 'review.html';  // Redirect to the review page
+          });
+        });
+
+        // Add event listener for "Comment" button
+        document.querySelectorAll('.btn-primary').forEach(function (button) {
+          button.addEventListener('click', function () {
+            window.location.href = 'review.html';  // Redirect to the review page
+          });
+        });
+      }); -- >
+    </script>
+
+
+
+    <script>
+        // Voice Recognition Function
+        function startVoiceRecognition() {
+          const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+
+          recognition.onstart = function () {
+            console.log('Voice recognition started');
+          };
+
+          recognition.onresult = function (event) {
+            const result = event.results[0][0].transcript;
+            console.log('Voice recognition result:', result);
+
+            document.getElementById('autoComplete').value = result;
+
+            searchMovies();
+          };
+
+          recognition.onerror = function (event) {
+            console.error('Voice recognition error:', event.error);
+          };
+
+          recognition.onend = function () {
+            console.log('Voice recognition ended');
+          };
+
+          recognition.start();
+        }
+
+
+      function hideCards() {
+        // Get the card container element
+        var cardContainer = document.getElementById("cardContainer");
+
+        if (cardContainer) {
+          // Remove all child elements (cards) from the card container
+          while (cardContainer.firstChild) {
+            cardContainer.removeChild(cardContainer.firstChild);
+          }
+        }
+      }
+
+
+      function searchMovies() {
+
+        const searchTerm = document.getElementById('autoComplete').value;
+        autoCompleteJS.search(searchTerm);
+        hideCards();
+        const results = []; // Replace this with your actual search results
+        if (results.length === 0) {
+          showNoResultsMessage();
+        } else {
+          // Display the search results or take other actions
+        }
+      }
+
+
+      function showNoResultsMessage() {
+        // Display a message indicating no search results
+        const noResultsMessage = document.createElement("div");
+        noResultsMessage.innerHTML = "<h3>No search results found.</h3>";
+        document.body.appendChild(noResultsMessage);
+      }
+      function searchAndHide() {
+        searchMovies(); // Call your existing searchMovies function
+        hideCards();   // Call your hideCards function
+      }
+
+    </script>
+
+    <!-- Update the JavaScript function -->
+    <script>
+      function showUserDetails() {
+        // Assume you have the details and image path hardcoded
+        var userDetails = {
+          name: "Pushkar",
+          email: "pushkar@gmail.com",
+          age: 21,
+          profession: "Web Developer"
+        };
+
+        // Display user details and photo in the modal body
+        var userDetailsBody = document.getElementById("userDetailsBody");
+        userDetailsBody.innerHTML = `
+          <p><strong>Name:</strong> ${userDetails.name}</p>
+          <p><strong>Email:</strong> ${userDetails.email}</p>
+          <p><strong>Age:</strong> ${userDetails.age}</p>
+          <p><strong>Profession:</strong> ${userDetails.profession}</p>
+          <img src="{{ url_for('static', filename='pushkar.jpeg') }}" alt="Pushkar's Photo" class="img-fluid rounded-circle" style="max-width: 100px; margin-top: 10px;">
+      `;
+
+        // Show the modal
+        $('#userDetailsModal').modal('show');
+      }
+    </script>
+
+    <!-- <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Add event listener for "Rate Us" button
+        document.querySelectorAll('.btn-success').forEach(function (button) {
+          button.addEventListener('click', function () {
+            window.location.href = 'review.html';
+          });
+        });
+
+        // Add event listener for "Comment" button
+        document.querySelectorAll('.btn-primary').forEach(function (button) {
+          button.addEventListener('click', function () {
+            window.location.href = 'review.html';
+          });
+        });
+      });
+    </script> -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/js/autoComplete.min.js"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='autocomplete.js')}}"></script>
+
+    <script type="text/javascript" src="{{url_for('static', filename='recommend.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+
+    <div class="footer" style="text-align: center; color: #e4e0e0;">
+      &copy; 2021-25 IIIT Vadodara. All rights reserved.
+    </div>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Review Page</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='Reviewka.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            /* background-color: #46a8c1; */
+        }
+
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #container {
+            display: flex;
+            justify-content: space-around;
+            align-items: stretch;
+            /* Make both divs the same size */
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .movie,
+        .review {
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+            border: 2px solid #007BFF;
+
+            /* Blue border */
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .review {
+            color: chartreuse
+        }
+
+        img.rev-img-top1 {
+            max-width: 100%;
+            height: auto;
+        }
+
+        input[type="number"],
+        textarea,
+        button {
+            width: 80%;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #333;
+            z-index: 2;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .reviewForm {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .reviewForm label {
+            margin-bottom: 5px;
+        }
+
+        .reviewForm input[type="number"],
+        .reviewForm textarea,
+        .reviewForm button {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        @media (min-width: 768px) {
+            .reviewForm {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div>
+            <a href="/">Movie Adda</a>
+            <a href="/">Home</a>
+            <a href="#">Genre</a>
+        </div>
+        <h1>Movie Review Page</h1>
+        <div>
+            <a href="#">Pushkar</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </nav>
+
+    <div id="container">
+        <div class="movie">
+            <img class="rev-img-top1" src="../static/img10.jpeg" alt="Movie Poster">
+            <h2>Spider-Man</h2>
+        </div>
+
+        <div class="review">
+            <h2>Your Review</h2>
+            <form class="reviewForm">
+                <label for="rating">Rating (1-10): </label>
+                <input type="number" id="rating" name="rating" min="1" max="10" placeholder="Rate the Movie" required>
+
+                <label for="comment">Comment: </label>
+                <textarea id="comment" name="comment" rows="4" cols="50" placeholder="Enter Your Feedback"
+                    required></textarea>
+
+                <button type="button" onclick="submitReview()">Submit Review</button>
+            </form>
+        </div>
+
+        <div class="overlay" id="overlay"></div>
+        <div class="popup" id="popup">
+            <p>Thanks for your review!</p>
+            <button onclick="closePopup()">Close</button>
+        </div>
+
+
+
+        <!-- ... (your existing HTML) ... -->
+
+        <script>
+            function submitReview() {
+                // Handle form submission logic here
+                // For now, just display the popup
+                document.getElementById('overlay').style.display = 'block';
+                document.getElementById('popup').style.display = 'block';
+
+                // Reset form fields
+                document.getElementById('rating').value = ''; // Set the default value or adjust as needed
+                document.getElementById('comment').value = '';
+
+                // You can also reset the entire form using:
+                // document.querySelector('.reviewForm').reset();
+            }
+
+            function closePopup() {
+                document.getElementById('overlay').style.display = 'none';
+                document.getElementById('popup').style.display = 'none';
+            }
+        </script>
+
+        <!-- ... (your existing HTML) ... -->
+
+
+</body>
+
+</html>
